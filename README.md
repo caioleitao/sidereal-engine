@@ -1,1 +1,1 @@
-# Sideral Game Engine
+# Sidereal Game Engine
