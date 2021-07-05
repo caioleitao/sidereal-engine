@@ -1,0 +1,22 @@
+{
+  "name": "sidereal-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unexploredproject/sidereal-engine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unexploredproject/sidereal-engine/issues"
+  },
+  "homepage": "https://github.com/unexploredproject/sidereal-engine#readme",
+  "dependencies": {
+    "electron": "^13.1.5"
+  }
+}

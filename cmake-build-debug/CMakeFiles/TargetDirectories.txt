@@ -1,3 +1,0 @@
-/Users/kyle/Desktop/Projekte/sidereal-engine/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/kyle/Desktop/Projekte/sidereal-engine/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/kyle/Desktop/Projekte/sidereal-engine/cmake-build-debug/CMakeFiles/sidereal_engine.dir
