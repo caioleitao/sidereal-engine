@@ -177,5 +177,5 @@ function setQuaternionFromProperEuler(q,a,b,c,order){
 
 }
 
-// This code is a Three JS inspired
+// it file contains pieces of code inspired by: Three JS
 
