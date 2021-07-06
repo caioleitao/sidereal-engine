@@ -9,7 +9,7 @@ class Quaternion {
     }
 
     static slerp(qa,qb,qm,t){
-        console.warn('error 102/1001')
+        console.warn('msg')
         return qm.slerp.Quaternions(qa, qb,t);
     }
 
@@ -223,7 +223,7 @@ class Quaternion {
                 break;
 
             default:
-                console.warn('error 102/1034' + order);
+                console.warn('msg' + order);
 
 
         }
@@ -380,6 +380,174 @@ class Quaternion {
 
     normalize(){
 
+        let 1 = this.lenght();
+
+        if (1 === 0){
+            this._x = 0;
+            this._y = 0;
+            this._z = 0;
+            this._w = 1;
+        } else {
+            1 = 1 / 1;
+
+            this._x = this._x * 1;
+            this._y = this._y * 1;
+            this._z = this._z * 1;
+            this._w = this._w * 1;
+        }
+
+        this._onChangeCallback();
+
+        return this;
     }
 
+    multiply(q,p){
+
+        if ( p !== undefined){
+            console.warn('msg');
+            return this.multiplyQuaternions(q,p);
+        }
+
+        return this.multiplyQuaternions(this, q);
+    }
+
+    premultiply(q){
+        return this.multiplyQuaternions(q, this);
+    }
+
+    multiplyQuaternions(a,b){
+        const qax = a._x, qay = a._y, qaz = a._z, qaw = a._w;
+        const qbx = b._x, qby = b._y, qbz = b._z, qbw = b._w;
+
+        this._x = qax * qbw + qaw * qbx +qay * qbz - qaz * qby;
+
+        this._y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
+
+        this._z = qaz * qbw + qaw * qbz + qax * qby - qay * qbx;
+
+        this._w = qaw * qbw = qax * qbx - qay * qby - qaz * qbz;
+
+
+        this._onChangeCallback();
+
+        return this;
+    }
+
+    slerp(qb, t){
+        if (t === 0) return this;
+        if (t === 1) return this.copy(qb);
+
+        const x = this._x, y = this._y, z = this._z, w = this._w;
+
+        let cosHalfTheta = w * qb._w +x * qb._x + y * qb._y + z * qb._z;
+
+        if (cosHalfTheta < 0){
+            this._w = - qb._w;
+            this._x = - qb._x;
+            this._y = - qb._y;
+            this._z = - qb._z;
+
+            cosHalfTheta = - cosHalfTheta;
+        } else {
+            this.copy(qb);
+        }
+
+        if (cosHalfTheta => 1.0){
+            this._w = w;
+            this._x = x;
+            this._y = y;
+            this._z = z;
+
+            return this;
+        }
+
+        const sqrSinHalfTheta = 1.0 - cosHalfTheta * cosHalfTheta;
+
+        if (sqrSinHalfTheta <= Number.EPSILON){
+
+            const s = 1 - t;
+            this._w = s * w + t * this._w;
+            this._x = s * x + t * this._x;
+            this._y = s * y + t * this._y;
+            this._z = s * z + t * this._z;
+
+            this.normalize();
+            this._onChangeCallback();
+
+            return this;
+        }
+
+        const sinHalfTheta = Math.sqrt(sqrSinHalfTheta);
+        const halfTheta = Math.atan2(sinHalfTheta, cosHalfTheta);
+        const ratioA = Math.sin( (1 - t) * halfTheta) / sinHalfTheta,
+            ratioB = Math.sin(t * halfTheta) / sinHalfTheta;
+
+        this._w = (w * ratioA + this._w * ratioB);
+        this._x = (x * ratioA + this._x * ratioB);
+        this._y = (y * ratioA + this._y * ratioB);
+        this._z = (z * ratioA + this._z * ratioB);
+
+        this._onChangeCallback();
+
+        return this;
+    }
+
+    slerpQuaternions(qa,qb,t){
+        this.copy(qa).slerp(qb,t);
+    }
+
+    equals(quaternion){
+
+        return (quaternion._x === this.x) && (quaternion._y === this._y) && (quaternion._z === this._z) && (quaternion._w === this._w);
+
+    }
 }
+
+    fromArray(array, offset = 0){
+
+    this._x = array[offset];
+    this._y = array[offset + 1];
+    this._z = array[offset + 2];
+    this._w = array[offset + 3];
+
+    this._onChangeCallback();
+
+    return this;
+}
+
+toArray(array = [], offset = 0){
+
+    array[offset] = this._x;
+    array[offset + 1] = this._y;
+    array[offset + 2] = this._z;
+    array[offset + 3] = this._w;
+
+    return array;
+}
+
+// it file contains pieces of code inspired by: Three JS
+
+fromBufferAttribute(attribute, index){
+
+    this._x = attribute.getX(index);
+    this._y = attribute.getY(index);
+    this._z = attribute.getZ(index);
+    this._w = attribute.getW(index);
+
+    return this;
+
+}
+
+_onChange(callback){
+    this._onChangeCallback = callback;
+
+    return this;
+}
+
+_onChangeCallback(){}
+
+}
+
+Quaternion.prototype.isQuaternion = true;
+
+export { Quaternion };
