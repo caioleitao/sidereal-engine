@@ -147,7 +147,7 @@ function setQuaternionFromProperEuler(q,a,b,c,order){
             break;
 
         default:
-            console.warn('error on function! 001/1001')
+            console.warn('msg')
     }
 
     export{
