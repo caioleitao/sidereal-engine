@@ -1,4 +1,4 @@
-import * as MathUtils from './utils.js'
+import * as MathUtils from './MathUtils.js'
 import { Quaternion } from './quaternion.js'
 
 class Vector3 {

@@ -1,4 +1,4 @@
-import {Vector3} from './vector3.js';
+import {Vector3} from './Vector3.js';
 
 const _v0 = new Vector3();
 const _v1 = new Vector3();
