@@ -8,3 +8,5 @@ function createWindow(){
 	win.loadFile('gui/index.html')
 
 }
+
+app.on('ready', createWindow)

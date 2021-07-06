@@ -1,0 +1,30 @@
+header i {
+  padding: 10px !important;
+  font-size: 40px !important;
+  cursor: pointer;
+}
+
+header div {
+  border-color: black;
+  border-width: 10px;
+  border-style: solid;
+  display: inline-block;
+  background-color: white;
+  border-radius: 20px;
+  /*text-align: right;*/
+  /*align-items: right;*/
+  /*align-items: right;*/
+  /*align-content: right;*/
+  /*align-self: right;*/
+  float: right;
+  position: relative;
+}
+
+button {
+  font-color: black;
+}
+
+.btn btn-primary {
+  background-color: black;
+}
+
