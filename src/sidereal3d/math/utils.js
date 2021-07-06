@@ -151,8 +151,29 @@ function setQuaternionFromProperEuler(q,a,b,c,order){
     }
 
     export{
-
-    }
+        DEG2RAD,
+        RAD2DEG,
+        generateUUID,
+        clamp,
+        euclideanModulo,
+        mapLinear,
+        inverseLerp,
+        lerp,
+        damp,
+        pingpong,
+        smoothstep,
+        smootherstep,
+        randInt,
+        randFloat,
+        randFloatSpread,
+        seededRandom,
+        degToRad,
+        radToDeg,
+        isPowerOfTwo,
+        ceilPowerOfTwo,
+        floorPowerOfTwo,
+        setQuaternionFromProperEuler,
+    };
 
 }
 
