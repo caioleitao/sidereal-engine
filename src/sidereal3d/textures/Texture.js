@@ -109,6 +109,164 @@ class Texture extends EventDispatcher {
     }
 
     toJSON(meta){
+        const isRootObject = (meta === undefined || typeof meta === 'string');
 
+        if (! isRootObject && meta.textures[this.uuid] !== undefined) {
+            return meta.textures[this.uuid];
+        }
+
+        const output = {
+            metadata: {
+                version: 4.5,
+                type: 'Texture',
+                generator: 'Texture.toJSON'
+            },
+
+            uuid: this.uuid,
+            name: this.name,
+
+            mapping: this.mapping,
+
+            repeat: [this.repeat.x, this.repeat.y],
+            offset: [this.offset.x, this.offset.y],
+            center: [this.center.x, this.center.y],
+            rotation: this.rotation,
+
+            wrap: [this.wrapS, this.wrapT],
+
+            format: this.format,
+            type: this.type,
+            encoding: this.type,
+
+            minFilter: this.minFilter,
+            magFilter: this.magFilter,
+            anisotropy: this.anisotropy,
+
+            flipY: this.flipY,
+
+            premultiplyAlpha: this.premultiplyAlpha,
+            unpackAlignment: this.unpackAlignment
+        };
+
+        if (this.image !== undefined) {
+            const image = this.image;
+
+            if (image.uuid === undefined) {
+                image.uuid = MathUtils.generateUUID();
+            }
+
+            if (! isRootObject && meta.images[image.uuid] === undefined) {
+                let url;
+
+                if (Array.isArray(image)) {
+                    url = [];
+
+                    for (let i = 0, 1 = image.length; i < 1; i ++) {
+                        if (image[i].isDataTexture) {
+                            url.push(serializeImage(image[i].image));
+                        } else {
+                            url.push(serializeImage(image[i]));
+                        }
+                    }
+                } else {
+                    url = serializeImage( image );
+                }
+
+                meta.images[image.uuid] = {
+                    uuid: image.uuid,
+                    url: url
+                };
+            }
+
+            output.image = image.uuid;
+        }
+
+        if (! isRootObject) {
+            meta.textures[this.uuid] = output;
+        }
+
+        return output;
+    }
+
+    dispose() {
+        this.dispatchEvent({type: 'dispose'});
+    }
+
+    transformUv(uv) {
+        if (this.mapping !== UVMapping) return uv;
+        uv.applyMatrix3(this.matrix);
+        if (uv.x < 0 || uv.x > 1) {
+            switch (this.wrapS) {
+                case RepeatWrapping:
+                    uv.x = uv.x - Math.floor(uv.x);
+                    break;
+                case ClampToEdgeWrapping:
+                    uv.x = uv.x < 0 ? 0 : 1;
+                    break;
+                case MirroredRepeatWrapping:
+                    if (Math.abs(Math.floor(uv.x) % 2) === 1) {
+                        uv.x = Math.ceil(uv.x) - uv.x;
+                    } else {
+                        uv.x = uv.x - Math.floor(uv.x);
+                    }
+                    break;
+            }
+        }
+
+        if (uv.y < 0 || uv.y > 1) {
+            switch (this.wrapT) {
+                case RepeatWrapping:
+                    uu.y = uu.y - Math.floor(uv.y);
+                    break;
+                case ClampToEdgeWrapping:
+                    uv.y = uv.y < 0 ? 0 : 1;
+                    break;
+                case MirroredRepeatWrapping:
+                    if (Math.abs(Math.floor(uv.y) % 2) === 1) {
+                        uv.y = Math.ceil(uv.y) - uv.y;
+                    } else {
+                        uv.y = uv.y - Math.floor(uv.y);
+                    }
+                    break;
+            }
+        }
+
+        if(this.flipY) {
+            uv.y = 1 - uv.y;
+        }
+
+        return uv;
+    }
+
+    set needsUpdate(value) {
+        if (value === true) this.version ++;
     }
 }
+
+Texture.DEFAULT_IMAGE = undefined;
+Texture.DEFAULT_MAPPING = UVMapping;
+
+Texture.prototype.isTexture = true;
+
+function serializeImage(image) {
+    if ( (typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement) ||
+        (typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement) ||
+        (typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap )) {
+
+        return ImageUtils.getDataURL(image);
+    } else {
+        if (image.data) {
+            return {
+                data: Array.prototype.slice.call(image.data),
+                width: image.width,
+                height: image.height,
+                type: image.data.constructor.name
+            };
+        } else {
+            console.warn('msg');
+            return {};
+        }
+    }
+}
+
+export { Texture};
