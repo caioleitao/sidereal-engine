@@ -1,1 +1,1 @@
-# Sidereal Game Engine (for Metal)
+# Sidereal Game Engine (for WebGK)
