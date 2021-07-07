@@ -1,1 +1,1 @@
-# Sidereal Game Engine (for WebGK)
+# Sidereal Game Engine (for WebGL)
