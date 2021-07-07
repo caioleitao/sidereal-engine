@@ -11,7 +11,7 @@ class LinearInterpolant extends Interpolant {
             stride = this.valueSize,
 
             offset1 = i1 * stride,
-            offset- = offset1- stride,
+            offset0 = offset1 - stride,
 
             weight1 = (t - t0) / (t1 - t0),
             weight0 = 1 - weight1;
