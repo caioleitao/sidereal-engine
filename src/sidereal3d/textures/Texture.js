@@ -269,4 +269,4 @@ function serializeImage(image) {
     }
 }
 
-export { Texture};
+export { Texture };
