@@ -286,9 +286,9 @@ class Color {
     offsetHSL(h,s,l) {
         this.getHSL(_hslA);
 
-        _hslA.h += h; _hslA.s += s; _hslA.1 += 1;
+        _hslA.h += h; _hslA.s += s; _hslA.l += l;
 
-        this.setHSL(_hslA.h, _hslA.s, _hslA.1);
+        this.setHSL(_hslA.h, _hslA.s, _hslA.l);
 
         return this;
     }
@@ -354,7 +354,7 @@ class Color {
 
         const h = MathUtils.lerp(_hslA.h, _hslB.h, alpha);
         const s = MathUtils.lerp(_hslA.s, _hslB.s, alpha);
-        const l = MathUtils.lerp(_hslA.1, _hslB.1, alpha);
+        const l = MathUtils.lerp(_hslA.l, _hslB.l, alpha);
 
         this.setHSL(h,s,l);
 
