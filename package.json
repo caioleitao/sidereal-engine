@@ -17,6 +17,13 @@
   },
   "homepage": "https://github.com/unexploredproject/sidereal-engine#readme",
   "dependencies": {
-    "electron": "^13.1.5"
+    "babel": "^6.23.0",
+    "chalk": "^4.1.1",
+    "concurrently": "^6.2.0",
+    "electron": "^13.1.5",
+    "eslint": "^7.30.0",
+    "glob": "^7.1.7",
+    "rollup": "^2.52.8",
+    "servez": "^1.11.0"
   }
 }
