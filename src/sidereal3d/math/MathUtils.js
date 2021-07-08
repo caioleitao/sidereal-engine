@@ -7,11 +7,11 @@ for ( let i = 0; i < 256; i ++) {
 let _seed = 1234567
 
 const DEG2RAD = Math.PI / 180
-const RAG2DEG = 180 / Math.PI
+const RAD2DEG = 180 / Math.PI
 
 function generateUUID() {
     const d0 = Math.random() * 0xffffffff | 0;
-    const d1 - Math.random() * 0xffffffff | 0;
+    const d1 = Math.random() * 0xffffffff | 0;
     const d2 = Math.random() * 0xffffffff | 0;
     const d3 = Math.random() * 0xffffffff | 0;
     const uuid = _lut[d0 & 0xff] + _lut[ d0 >> 8 & 0xff ] + _lut[ d0 >> 16 & 0xff ] + _lut[ d0 >> 24 & 0xff] + '-' +
@@ -64,7 +64,7 @@ function smoothstep(x, min, max){
     return x * x * (3 - 2 * x);
 }
 
-function smootherstep{
+function smootherstep(x, min, max){
     if (x <= min) return 0;
     if (x >= max) return 1;
 
@@ -113,7 +113,7 @@ function floorPowerOfTwo(value){
     return Math.pow(2, Math.floor(Math.log(value) / Math.LN2));
 }
 
-function setQuaternionFromProperEuler(q,a,b,c,order){
+function setQuaternionFromProperEuler(q,a,b,c,order) {
     const cos = Math.cos;
     const sin = Math.sin;
 
@@ -126,12 +126,12 @@ function setQuaternionFromProperEuler(q,a,b,c,order){
     const c1_3 = cos((a - c) / 2);
     const s1_3 = sin((a - c) / 2);
 
-    switch (order){
+    switch (order) {
         case 'XYX':
             q.set(c2 * s13, s2 * c1_3, s2 * s1_3, c2 * c13);
             break;
         case 'YZY':
-            q.set(s2 * s1_3, c2 *s13, s2 * c1_3, c2 * c13);
+            q.set(s2 * s1_3, c2 * s13, s2 * c1_3, c2 * c13);
             break;
         case 'ZXZ':
             q.set(s2 * c1_3, s2 * s1_3, c2 * s13, c2 * c13);
@@ -149,33 +149,32 @@ function setQuaternionFromProperEuler(q,a,b,c,order){
         default:
             console.warn('msg')
     }
-
-    export{
-        DEG2RAD,
-        RAD2DEG,
-        generateUUID,
-        clamp,
-        euclideanModulo,
-        mapLinear,
-        inverseLerp,
-        lerp,
-        damp,
-        pingpong,
-        smoothstep,
-        smootherstep,
-        randInt,
-        randFloat,
-        randFloatSpread,
-        seededRandom,
-        degToRad,
-        radToDeg,
-        isPowerOfTwo,
-        ceilPowerOfTwo,
-        floorPowerOfTwo,
-        setQuaternionFromProperEuler,
-    };
-
 }
 
-// it file contains pieces of code inspired by: Three JS
+export{
+    DEG2RAD,
+    RAD2DEG,
+    generateUUID,
+    clamp,
+    euclideanModulo,
+    mapLinear,
+    inverseLerp,
+    lerp,
+    damp,
+    pingpong,
+    smoothstep,
+    smootherstep,
+    randInt,
+    randFloat,
+    randFloatSpread,
+    seededRandom,
+    degToRad,
+    radToDeg,
+    isPowerOfTwo,
+    ceilPowerOfTwo,
+    floorPowerOfTwo,
+    setQuaternionFromProperEuler,
+};
+
+
 
