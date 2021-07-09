@@ -114,8 +114,8 @@ class Material extends EventDispatcher {
 
         if (isRoot) {
             meta = {
-                textures: {};
-                images: {};
+                textures: {},
+                images: {}
             };
         }
         const data = {
@@ -321,7 +321,56 @@ class Material extends EventDispatcher {
         this.stencilFail = source.stencilFail;
         this.stencilZFail = source.stencilZFail;
         this.stencilZPass = source.stencilZPass;
-        this.stencilWrite = source.stencilWrite
+        this.stencilWrite = source.stencilWrite;
+
+        const srcPlanes = source.clippingPlanes;
+        let dstPlanes = null;
+
+        if (srcPlanes !== null) {
+            const n = srcPlanes.length;
+            dstPlanes = new Array(n);
+
+            for (let i = 0; i !== n; ++ i) {
+                dstPlanes[i] = srcPlanes[i].clone();
+            }
+        }
+        this.clippingPlanes = dstPlanes;
+        this.clipIntersection = source.clipIntersection;
+        this.clipShadows = source.clipShadows;
+
+        this.shadowSide = source.shadowSide;
+
+        this.colorWrite = source.colorWrite;
+
+        this.precision = source.precision;
+
+        this.polygonOffset = source.polygonOffset;
+        this.polygonOffsetFactor = source.polygonOffsetFactor;
+        this.polygonOffsetUnits = source.polygonOffsetUnits;
+
+        this.dithering = source.dithering;
+
+        this.alphaTest = source.alphaTest;
+        this.alphaToCoverage = source.alphaToCoverage;
+        this.premultipliedAlpha = source.premultipliedAlpha;
+
+        this.visible = source.visible;
+
+        this.toneMapped = source.toneMapped;
+
+        this.userData = JSON.parse(JSON.stringify(source.userData));
+
+        return this;
+    }
+    dispose() {
+        this.dispatchEvent({type: 'dispose'});
+    }
+    set needsUpdate(value) {
+        if (value === true) this.version ++;
     }
 }
+
+Material.prototype.isMaterial = true;
+
+export { Material };
 
