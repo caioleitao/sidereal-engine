@@ -276,7 +276,8 @@ class BufferAttribute {
 
     }
 
-    BufferAttribute.prototype.isBufferAttribute = true;
+BufferAttribute.prototype.isBufferAttribute = true;
+
 
     class Int8BufferAttribute extends BufferAttribute {
         constructor(array, itemSize, normalized) {
@@ -332,5 +333,15 @@ class Float64BufferAttribute extends BufferAttribute {
     }
 }
 export {
-
+    Float64BufferAttribute,
+    Float32BufferAttribute,
+    Float16BufferAttribute,
+    Uint32BufferAttribute,
+    Int32BufferAttribute,
+    Uint16BufferAttribute,
+    Int16BufferAttribute,
+    Uint8BufferAttribute,
+    Uint8ClampedBufferAttribute,
+    Int8BufferAttribute,
+    BufferAttribute,
 }
