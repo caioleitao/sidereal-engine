@@ -180,7 +180,7 @@ class BufferAttribute {
 
                 _vector.transformDirection(m);
 
-                this.setXYZ(i,_vector.x,_vector.y,_vector.z);
+                this.setXYZ(i, _vector.x, _vector.y, _vector.z);
             }
             return this;
         }
@@ -251,7 +251,7 @@ class BufferAttribute {
 
             return this;
         }
-        onUpload(callback) {
+        onUpload( callback ) {
             this.onUploadCallback = callback;
 
             return this;
@@ -278,10 +278,10 @@ class BufferAttribute {
 
 BufferAttribute.prototype.isBufferAttribute = true;
 
-
-    class Int8BufferAttribute extends BufferAttribute {
+class Int8BufferAttribute extends BufferAttribute {
         constructor(array, itemSize, normalized) {
             super(new Int8Array(array), itemSize, normalized);
+            super();
         }
 }
 class Uint8BufferAttribute extends BufferAttribute {
